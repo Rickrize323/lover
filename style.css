@@ -1,0 +1,178 @@
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  /* Coloca aquí tu imagen de fondo llamada fondoaron */
+  /* Se repite como patrón (mosaico). Ajusta background-size para
+     cambiar el tamaño de cada "azulejo" del patrón. */
+  background-image: url('fondoaron.jpg');
+  background-size: 220px 220px;
+  background-position: center;
+  background-repeat: repeat;
+  background-color: #111; /* color de respaldo si no carga la imagen */
+  position: relative;
+}
+
+/* Capa oscura opcional para que las fotos resalten sobre el fondo */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+}
+
+.stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 92vmin;
+  height: 92vmin;
+}
+
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 1px dashed rgba(255,255,255,0.15);
+}
+
+/* Círculo GRANDE */
+.orbit-large {
+  width: 90vmin;
+  height: 90vmin;
+  margin: -45vmin 0 0 -45vmin;
+  animation: spin 45s linear infinite;
+}
+
+/* Círculo MEDIANO */
+.orbit-medium {
+  width: 58vmin;
+  height: 58vmin;
+  margin: -29vmin 0 0 -29vmin;
+  animation: spin-reverse 30s linear infinite;
+}
+
+/* Círculo CHICO */
+.orbit-small {
+  width: 30vmin;
+  height: 30vmin;
+  margin: -15vmin 0 0 -15vmin;
+  animation: spin 18s linear infinite;
+}
+
+.photo {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  border: 3px solid rgba(255,255,255,0.85);
+  background: linear-gradient(135deg, #bbb, #888);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.photo:hover {
+  transform: scale(1.08);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
+}
+
+.titulo {
+  position: absolute;
+  top: 4vh;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: background 0.3s ease, opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  background: rgba(0,0,0,0.75);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-photo {
+  width: min(70vmin, 500px);
+  height: min(70vmin, 500px);
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid #fff;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  transform: scale(0.5);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.active .modal-photo {
+  transform: scale(1);
+}
+
+.modal-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.modal-close {
+  position: absolute;
+  top: 5vh;
+  right: 5vw;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.modal-close:hover {
+  background: rgba(255,255,255,0.3);
+}
